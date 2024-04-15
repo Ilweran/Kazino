@@ -13,9 +13,19 @@ namespace Kazino
 {
     public partial class Form1 : Form
     {
+        
+
+//        Button play = new Button()
+ //       {
+ //           Location = new Point(44,800),
+//            Size = new Size(300, 88)
+ //       };
+
+
         PictureBox pictureBox2 = new PictureBox()
         {
             Name = "Play",
+            Visible = true,
             Size = new Size(300, 88),
             Location = new Point(40, 800),
             Image = Image.FromFile(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal) + @"\Play.jpg")
@@ -23,56 +33,71 @@ namespace Kazino
 
         PictureBox pictureBox1 = new PictureBox()
         {
-            Name = "pictureBox1",
+            Name = "InitBgrdn",
+            Visible = true,
             Size = new Size(1300, 900),
             Location = new Point(0, 0),
             Image = Image.FromFile(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal) + @"\InitBgrnd.jpg")
         };
 
-        Button play = new Button();
-
         public Form1()
         {
             InitializeComponent();
 
-            Button play = new Button();
-            play.Parent = pictureBox2;
-            play.Location = new Point(44, 800);
-            play.Size = new Size(300, 88);
-            this.Controls.Add(play);
-
-            void play_Click(object sender, EventArgs e)
-            {
-                MessageBox.Show("Clicked");
-            };
-
-
         }
+
+        Control control;
 
         private void Form1_Load(object sender, EventArgs e)
         {
             PictureBox pictureBox2 = new PictureBox()
             {
                 Name = "Play",
+                Visible = true,
                 Size = new Size(300, 88),
-                Location = new Point(40, 800),
-                Image = Image.FromFile(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal) + @"\Play.jpg")
+                Location = new Point(40, 600),
+                Image = Image.FromFile(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal) + @"\Play.jpg"),
+                
             };
 
             PictureBox pictureBox1 = new PictureBox()
             {
-                Name = "SpinMachine",
+                Name = "InitBgrdn",
+                Visible = true,
                 Size = new Size(1300, 900),
                 Location = new Point(0, 0),
                 Image = Image.FromFile(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal) + @"\InitBgrnd.jpg")
             };
-
- 
-            this.Controls.Add(pictureBox2);
-            this.BringToFront();
-
+            
             this.Controls.Add(pictureBox1);
+            this.Controls.Add(pictureBox2);
+            pictureBox2.BringToFront();
+            
+            foreach (Control control in this.Controls)
+                if (control is PictureBox)
+                    control.Click += pictureBoxClickHandler;
+
+            
+
+ //           play.Parent = pictureBox2;
+ //this.Controls.Add(play);
         }
+
+        private void pictureBoxClickHandler(object sender, EventArgs e)
+        {
+            PictureBox pictureBox = sender as PictureBox;
+            if (pictureBox == pictureBox2)
+            {
+                Form3 A = new Form3();
+                A.frm1 = this;
+                A.Show();
+            }
+        }
+
+ //       private void play_Click(object sender, EventArgs e)
+ //       {
+ //           MessageBox.Show("Clicked");
+ //       }
 
     }
 }
